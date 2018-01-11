@@ -1,0 +1,6 @@
+framework module LBFinder {
+  umbrella header "LBFinder-umbrella.h"
+
+  export *
+  module * { export * }
+}

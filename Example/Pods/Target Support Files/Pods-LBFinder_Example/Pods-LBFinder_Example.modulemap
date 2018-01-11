@@ -1,0 +1,6 @@
+framework module Pods_LBFinder_Example {
+  umbrella header "Pods-LBFinder_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

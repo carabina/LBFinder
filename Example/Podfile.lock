@@ -1,0 +1,16 @@
+PODS:
+  - LBFinder (0.1.0)
+
+DEPENDENCIES:
+  - LBFinder (from `../`)
+
+EXTERNAL SOURCES:
+  LBFinder:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LBFinder: e12cfba0ffd77a4af957d747c7a70a6aa4220283
+
+PODFILE CHECKSUM: 3cd8aaaa24e0ebc797b31ac72ff3d3577e6b3d66
+
+COCOAPODS: 1.2.0

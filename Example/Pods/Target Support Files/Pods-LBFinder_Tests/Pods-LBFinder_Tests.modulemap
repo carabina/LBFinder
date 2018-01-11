@@ -1,0 +1,6 @@
+framework module Pods_LBFinder_Tests {
+  umbrella header "Pods-LBFinder_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

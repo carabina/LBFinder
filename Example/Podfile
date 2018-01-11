@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'LBFinder_Example' do
+  pod 'LBFinder', :path => '../'
+
+  target 'LBFinder_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
