@@ -31,13 +31,12 @@
 }
 - (UITextView *)infoView {
     if (!_infoView) {
-        CGFloat w = self.view.bounds.size.width - 30;
-        CGFloat h = [self.info boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX)
-                                            options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
-                                         attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f]}
-                                            context:nil].size.height;
+        CGFloat w = self.view.bounds.size.width - 20;
+        CGFloat h = [self.info boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} context:nil].size.height;
         h+=20;
-        _infoView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
+        _infoView = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), w, h)];
+        _infoView.font = [UIFont systemFontOfSize:12.0f];
+        _infoView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
         [self.view addSubview:_infoView];
     }
     return _infoView;
@@ -45,7 +44,8 @@
 - (UITextView *)textView {
     if (!_textView) {
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.infoView.frame), self.view.bounds.size.width, CGRectGetMaxY(self.view.frame)-CGRectGetMaxY(self.infoView.frame))];
-        _textView.font = [UIFont systemFontOfSize:15.0f];
+        _textView.font = [UIFont systemFontOfSize:12.0f];
+        _textView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
         [self.view addSubview:_textView];
     }
     return _textView;
