@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LBFinder'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'A finder on iOS.'
   s.description      = <<-DESC
 A like finder on iOS.
