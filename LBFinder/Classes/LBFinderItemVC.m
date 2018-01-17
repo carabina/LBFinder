@@ -11,6 +11,7 @@
 @property (nonatomic, strong)LBFinderItem *item;
 @property (nonatomic, copy)NSString *info;
 @property (nonatomic, strong)UITextView *infoView;
+
 @property (nonatomic, strong)UITextView *textView;
 @property (nonatomic, strong)UIImageView *imageView;
 
@@ -31,22 +32,36 @@
 }
 - (UITextView *)infoView {
     if (!_infoView) {
-        CGFloat w = self.view.bounds.size.width - 20;
+        CGFloat w = self.view.bounds.size.width;
         CGFloat h = [self.info boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} context:nil].size.height;
         h+=20;
-        _infoView = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), w, h)];
+        _infoView = [UITextView new];
         _infoView.font = [UIFont systemFontOfSize:12.0f];
         _infoView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        _infoView.backgroundColor = [UIColor lightGrayColor];
         [self.view addSubview:_infoView];
+        _infoView.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *lt = [NSLayoutConstraint constraintWithItem:_infoView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:0];
+        NSLayoutConstraint *ll = [NSLayoutConstraint constraintWithItem:_infoView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0];
+        NSLayoutConstraint *lr = [NSLayoutConstraint constraintWithItem:_infoView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:0];
+        NSLayoutConstraint *lh = [NSLayoutConstraint constraintWithItem:_infoView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0f constant:h];
+        [self.view addConstraints:@[lt, ll, lr, lh]];
     }
     return _infoView;
 }
 - (UITextView *)textView {
     if (!_textView) {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.infoView.frame), self.view.bounds.size.width, CGRectGetMaxY(self.view.frame)-CGRectGetMaxY(self.infoView.frame))];
+        _textView = [UITextView new];
         _textView.font = [UIFont systemFontOfSize:12.0f];
         _textView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
         [self.view addSubview:_textView];
+        
+        _textView.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *lt = [NSLayoutConstraint constraintWithItem:_textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.infoView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20];
+        NSLayoutConstraint *ll = [NSLayoutConstraint constraintWithItem:_textView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0];
+        NSLayoutConstraint *lr = [NSLayoutConstraint constraintWithItem:_textView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:0];
+        NSLayoutConstraint *lb = [NSLayoutConstraint constraintWithItem:_textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0];
+        [self.view addConstraints:@[lt, ll, lr, lb]];
     }
     return _textView;
 }
@@ -55,6 +70,13 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.infoView.frame), self.view.bounds.size.width, CGRectGetMaxY(self.view.frame)-CGRectGetMaxY(self.infoView.frame))];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:_imageView];
+        
+        _textView.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *lt = [NSLayoutConstraint constraintWithItem:_imageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.infoView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:20];
+        NSLayoutConstraint *ll = [NSLayoutConstraint constraintWithItem:_imageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0];
+        NSLayoutConstraint *lr = [NSLayoutConstraint constraintWithItem:_imageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:0];
+        NSLayoutConstraint *lb = [NSLayoutConstraint constraintWithItem:_imageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0];
+        [self.view addConstraints:@[lt, ll, lr, lb]];
     }
     return _imageView;
 }
@@ -67,6 +89,7 @@
 
 #pragma mark -- Init
 - (void)initSet {
+    self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = self.item.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
