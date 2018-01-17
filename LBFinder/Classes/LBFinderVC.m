@@ -63,7 +63,7 @@
     cell.textLabel.text = item.name;
     if (item.isFolder) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", item.subItemsCount];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)item.subItemsCount];
     }else {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.detailTextLabel.text = item.sizeString;
