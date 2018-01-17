@@ -15,6 +15,12 @@
 @end
 
 @implementation LBFinderVC
+- (LBFinderItem *)item {
+    if(!_item) {
+        _item = [LBFinderItem instanceWithPath:NSHomeDirectory()];
+    }
+    return _item;
+}
 - (NSArray<LBFinderItem *> *)dataSource {
     if (!_dataSource) {
         _dataSource = [NSMutableArray arrayWithCapacity:0];
